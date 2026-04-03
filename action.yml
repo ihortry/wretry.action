@@ -67,7 +67,7 @@ inputs:
     required: false
     default: ${{ github.token }}
 runs:
-  using: 'node20'
+  using: 'node24'
   pre: 'src/Pre.js'
   main: 'src/Main.js'
   post: 'src/Post.js'
