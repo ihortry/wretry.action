@@ -1,0 +1,37 @@
+
+name: publish
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        type: choice
+        options: [patch, minor, major]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PUBLISH_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install willbe
+        run: npm i -g willbe@latest
+
+      - name: Run willbe publish
+        run: will .build action.release ${{ inputs.bump }}
+        env:
+          GH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
