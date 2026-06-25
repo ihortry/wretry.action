@@ -25,18 +25,19 @@ jobs:
         with:
           node-version: 24
 
-      - name: Configure git identity
+      - name: Setup git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global core.autocrlf input
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global pull.rebase false
+                git config --global init.defaultBranch master
 
       - name: Install willbe
         run: npm i -g willbe@latest
 
-      - name: Build first
-        run: will .build build.compiled
-        env:
-          GH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+      - name: Install submodules
+        run: will .npm.install
 
       - name: Run willbe publish
         run: will .publish action.release.${{ inputs.bump }}
