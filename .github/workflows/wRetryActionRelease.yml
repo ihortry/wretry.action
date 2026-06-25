@@ -33,6 +33,11 @@ jobs:
       - name: Install willbe
         run: npm i -g willbe@latest
 
+      - name: Build first
+        run: will .build build.compiled
+        env:
+          GH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+
       - name: Run willbe publish
         run: will .publish action.release.${{ inputs.bump }}
         env:
