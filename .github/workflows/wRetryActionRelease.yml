@@ -1,5 +1,5 @@
 
-name: publish
+name: release
 on:
   workflow_dispatch:
     inputs:
