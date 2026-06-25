@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Pin npm version for willbe
+        run: npm install -g npm@8
+
       - name: Setup git
         run: |
                 git config --global core.autocrlf input
@@ -33,10 +36,9 @@ jobs:
                 git config --global user.email "github-actions[bot]@users.noreply.github.com"
                 git config --global pull.rebase false
                 git config --global init.defaultBranch master
-                git config --global core.symlinks true
 
       - name: Install willbe
-        run: npm i -g willbe@stable
+        run: npm i -g willbe@latest
 
       - name: Install submodules
         run: will .npm.install
