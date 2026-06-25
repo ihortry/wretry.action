@@ -43,6 +43,9 @@ jobs:
       - name: Install submodules
         run: will .npm.install
 
+      - name: Clean working tree before publish
+        run: git checkout -- . || true
+
       - name: Run willbe publish
         run: will .publish action.release.${{ inputs.bump }}
         env:
