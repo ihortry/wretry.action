@@ -46,9 +46,12 @@ jobs:
       - name: Clean working tree before publish
         run: git checkout -- . || true
 
+      - name: Install censor
+        run: npm i -g censor
+        
       - name: Configure willbe github identity
         run: censor .github.identity.new github.default login:${{ github.actor }} token:${{ secrets.PUBLISH_TOKEN }}
-        
+
       - name: Run willbe publish
         run: will .publish action.release.${{ inputs.bump }}
         env:
